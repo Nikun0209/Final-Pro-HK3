@@ -1,11 +1,11 @@
-import streamlit as st # type: ignore
+import streamlit as st 
 import sqlite3
 import tempfile
 import requests
 import json
 import uuid
-import fitz # type: ignore
-from streamlit_option_menu import option_menu  # type: ignore
+import fitz 
+from streamlit_option_menu import option_menu 
 from qdrant_client import QdrantClient, models
 from sentence_transformers import SentenceTransformer
 from itertools import groupby
