@@ -4,7 +4,7 @@ import tempfile
 import requests
 import json
 import uuid
-import fitz 
+import pdfplumber
 from streamlit_option_menu import option_menu 
 from qdrant_client import QdrantClient, models
 from sentence_transformers import SentenceTransformer
@@ -257,17 +257,17 @@ elif selected == "FILE SEARCH":
 
         for pdf_file in uploaded_pdfs:
             
-            try:
+            try:                        
                 file_id = str(uuid.uuid4())
-                doc = fitz.open(stream=pdf_file.read(), filetype="pdf")
                 all_text = []
 
-                for page in doc:
-                    
-                    text = page.get_text().strip()
-                    
-                    if text:
-                        all_text.append(text)
+                # Giả sử `pdf_file` là đối tượng file dạng bytes
+                with pdfplumber.open(pdf_file) as pdf:
+                    for page in pdf.pages:
+                        text = page.extract_text().strip()
+                        
+                        if text:
+                            all_text.append(text)
 
                 if all_text:
                     
