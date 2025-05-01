@@ -162,7 +162,7 @@ with st.sidebar:
     selected = option_menu(
         menu_title="Menu",
         options=["SQL QUERY", "CODE SEARCH", "FILE SEARCH"],
-        icons=["robot", "alphabet", "file-earmark-text"],
+        icons=["server", "file-code", "file-pdf"],
         menu_icon="menu-up",
         default_index=0
     )
