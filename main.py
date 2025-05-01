@@ -1,10 +1,11 @@
-import streamlit as st 
 import sqlite3
 import tempfile
 import requests
 import json
 import uuid
 import pdfplumber
+import torch
+import streamlit as st 
 from streamlit_option_menu import option_menu 
 from qdrant_client import QdrantClient, models
 from sentence_transformers import SentenceTransformer
@@ -23,8 +24,21 @@ client.recreate_collection(
 )
 
 # --- Load models ---
-text_model = SentenceTransformer("all-MiniLM-L6-v2", device="cpu")
-code_model = SentenceTransformer("jinaai/jina-embeddings-v2-base-code", device="cpu")
+
+
+# Load models with proper device initialization
+def load_model(model_name):
+    model = SentenceTransformer(model_name)
+    
+    # Kiểm tra xem mô hình có đang ở meta device không
+    if model.device.type == 'meta':
+        model = model.to(torch.device('cpu'))  # Hoặc bạn có thể chuyển sang GPU nếu cần
+    
+    return model
+
+# Khởi tạo mô hình text và code
+text_model = load_model("all-MiniLM-L6-v2")
+code_model = load_model("jinaai/jina-embeddings-v2-base-code")
 
 # --- Connect to DB ---
 def connect_to_db(uploaded_file):
