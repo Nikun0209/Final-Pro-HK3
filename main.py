@@ -32,7 +32,7 @@ def load_model(model_name):
     
     # Kiểm tra xem mô hình có đang ở meta tensor không
     if model.device.type == 'meta':
-        model = model.to_empty(torch.device('cpu'))  # Chuyển sang CPU (hoặc GPU nếu cần)
+        model = model.to_empty(torch.device('gpu'))  # Chuyển sang CPU (hoặc GPU nếu cần)
     
     return model
 
