@@ -23,8 +23,8 @@ client.recreate_collection(
 )
 
 # --- Load models ---
-text_model = SentenceTransformer("all-MiniLM-L6-v2")
-code_model = SentenceTransformer("jinaai/jina-embeddings-v2-base-code")
+text_model = SentenceTransformer("all-MiniLM-L6-v2", device="cpu")
+code_model = SentenceTransformer("jinaai/jina-embeddings-v2-base-code", device="cpu")
 
 # --- Connect to DB ---
 def connect_to_db(uploaded_file):
